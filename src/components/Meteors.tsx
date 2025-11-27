@@ -52,24 +52,24 @@ export function Meteors({ number }: MeteorsProps) {
 				//                 x decreases, y increases (going down-left)
 
 				// Spawn line: diagonal with slope -1 passing through top-right corner (width, 0)
-				// Line equation: y = -(x - width) = width - x
 				//
-				// To cover viewport, we need meteors from:
-				//   - Upper part of line (above viewport, x > width) to hit top-left area
-				//   - Lower part of line (y > 0, x < width) to hit bottom-right area
+				// For meteors traveling at 215deg (toward bottom-left), to cover the ENTIRE
+				// viewport we need spawn points distributed along this line from:
+				//   - Far above/right of viewport (to hit the top-left corner area)
+				//   - Far below/left along the line (to hit the bottom-right corner area)
 				//
-				// The line intersects:
-				//   - y = 0 at x = width (top-right corner)
-				//   - y = height at x = width - height
-				//   - x = 0 at y = width
-				//
-				// We distribute along the line from well above top-right to well below bottom-right
+				// The key insight: a meteor at top-right corner travels to bottom-left,
+				// but only covers the main diagonal. To hit bottom-right, we need meteors
+				// starting further DOWN the spawn line (at positive Y, right of viewport).
 
-				// Use offset along the line, where 0 = top-right corner
-				// Range from -width (to cover meteors that hit left edge)
-				// to +height (to cover meteors that hit bottom edge)
-				const minOffset = -dimensions.width * 0.5;
-				const maxOffset = dimensions.height + dimensions.width * 0.5;
+				// Total range needed along the spawn line
+				const lineLength = dimensions.width + dimensions.height;
+
+				// Offset along line: 0 = top-right corner
+				// negative = up-right (off-screen above)
+				// positive = down-left along line (to cover bottom-right of viewport)
+				const minOffset = -dimensions.width;
+				const maxOffset = dimensions.height + dimensions.width;
 				const offset = minOffset + Math.random() * (maxOffset - minOffset);
 
 				const cos45 = Math.SQRT1_2;
@@ -79,7 +79,7 @@ export function Meteors({ number }: MeteorsProps) {
 				const lineY = 0 + offset * cos45;
 
 				// Push off-screen perpendicular to line (direction (1, 1) normalized = up-right)
-				const perpOffset = 30 + Math.random() * 70;
+				const perpOffset = 50 + Math.random() * 100;
 				const startX = lineX + perpOffset * cos45;
 				const startY = lineY - perpOffset * cos45;
 
