@@ -1,0 +1,31 @@
+../meteor-blog
+├── README.md
+├── astro.config.ts
+├── biome.jsonc
+├── package-lock.json
+├── package.json
+├── public
+│   ├── blog-placeholder-1.jpg
+│   ├── blog-placeholder-2.jpg
+│   ├── blog-placeholder-3.jpg
+│   ├── blog-placeholder-4.jpg
+│   ├── blog-placeholder-5.jpg
+│   ├── blog-placeholder-about.jpg
+│   ├── favicon.svg
+│   └── lang
+├── src
+│   ├── assets
+│   ├── components
+│   ├── constants.ts
+│   ├── content
+│   ├── env.d.ts
+│   ├── hooks
+│   ├── layouts
+│   ├── pages
+│   ├── styles
+│   ├── types
+│   └── utils
+├── tailwind.config.ts
+└── tsconfig.json
+
+12 directories, 16 files

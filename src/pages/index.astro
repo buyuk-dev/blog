@@ -1,0 +1,119 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="intro">
+				<img src="/images/profile.jpeg" alt="Michał Michalski" class="profile-photo" />
+				<div class="intro-text">
+					<h1>Welcome to my blog!</h1>
+					<p>
+						My name is Michał. I build shippable AI systems and think a lot about the future impact of technology on our world.
+					</p>
+					<p>
+						It's a hype-free space. You will only find my raw, unfiltered thoughts here. Hope you find something worth your time — if you do, make sure to let me know about it!
+					</p>
+				</div>
+			</section>
+
+			<section class="posts">
+				<h2>Recent Posts</h2>
+				<ul>
+					{posts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>
+								<h4 class="title">{post.data.title}</h4>
+								<p class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+		<style>
+			main {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+			}
+			.intro {
+				display: flex;
+				align-items: center;
+				gap: 2em;
+				margin: 3em 0;
+				padding-bottom: 3em;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.profile-photo {
+				width: 120px;
+				height: 120px;
+				border-radius: 50%;
+				object-fit: cover;
+				flex-shrink: 0;
+			}
+			.intro-text h1 {
+				margin-bottom: 0.5em;
+			}
+			.intro-text p {
+				color: rgb(var(--gray-dark));
+				line-height: 1.6;
+			}
+			@media (max-width: 500px) {
+				.intro {
+					flex-direction: column;
+					text-align: center;
+				}
+			}
+			.posts h2 {
+				margin-bottom: 1em;
+			}
+			.posts ul {
+				list-style: none;
+				padding: 0;
+			}
+			.posts li {
+				margin-bottom: 1em;
+			}
+			.posts a {
+				display: block;
+				padding: 1em;
+				border-radius: 8px;
+				text-decoration: none;
+				color: inherit;
+				transition: background-color 0.2s;
+			}
+			.posts a:hover {
+				background-color: var(--bg-secondary);
+			}
+			.posts .title {
+				margin: 0 0 0.25em 0;
+				color: rgb(var(--black));
+			}
+			.posts .date {
+				margin: 0;
+				color: rgb(var(--gray));
+				font-size: 0.9em;
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,144 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title="About" description="About Michał Michalski" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				<section class="bio">
+					<img src="/images/profile.jpeg" alt="Michał Michalski" class="profile-photo" />
+					<div class="bio-text">
+						<p>
+							I'm Michał. I've been building software for over a decade and thinking about AI for longer than it's been trendy.
+						</p>
+						<p>
+							Currently I'm CTO at <a href="https://www.intelliroom.ai/">IntelliRoom.ai</a>, where we're building AI-powered due diligence for VCs and private equity. Before that I co-founded Fractile, an agentic RAG platform that got acquired by T12 in early 2025.
+						</p>
+						<p>
+							Before the startup life, I worked at Microsoft, Samsung R&D, Nokia, and a few other places. I've built everything from LTE base stations to smartphone sensors to distributed cloud systems. These days it's mostly LLMs, agents, and trying to make AI actually work in production.
+						</p>
+						<p>
+							But honestly, what I care about most is where this is all going. I've been obsessing over that question for years.
+						</p>
+						<p>
+							If you want to talk, I'm always open to meeting interesting people.
+						</p>
+					</div>
+				</section>
+
+				<section class="contact">
+					<h2>Get in Touch</h2>
+					<div class="contact-links">
+						<a href="mailto:michal@buyuk.io" title="Email">
+							<svg viewBox="0 0 16 16" aria-hidden="true" width="28" height="28"
+								><path
+									fill="currentColor"
+									d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"
+								></path></svg
+							>
+						</a>
+						<a href="https://github.com/buyuk-dev" target="_blank" title="GitHub">
+							<svg viewBox="0 0 16 16" aria-hidden="true" width="28" height="28"
+								><path
+									fill="currentColor"
+									d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+								></path></svg
+							>
+						</a>
+						<a href="https://linkedin.com/in/buyuk" target="_blank" title="LinkedIn">
+							<svg viewBox="0 0 16 16" aria-hidden="true" width="28" height="28"
+								><path
+									fill="currentColor"
+									d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"
+								></path></svg
+							>
+						</a>
+						<a href="https://calendly.com/buyuk" target="_blank" title="Book a call">
+							<svg viewBox="0 0 16 16" aria-hidden="true" width="28" height="28"
+								><path
+									fill="currentColor"
+									d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
+								></path></svg
+							>
+						</a>
+						<a href="https://github.com/buyuk-dev/resume/raw/master/MichalskiMichal.pdf" target="_blank" title="Resume (PDF)">
+							<svg viewBox="0 0 16 16" aria-hidden="true" width="28" height="28"
+								><path
+									fill="currentColor"
+									d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zM10 4a1 1 0 0 1-1-1V1.5L13.5 6H11a1 1 0 0 1-1-1V4zM4.5 12.5a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zm0-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zm0-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zm0-2a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"
+								></path></svg
+							>
+						</a>
+					</div>
+				</section>
+			</article>
+		</main>
+		<Footer />
+		<style>
+			main {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+			}
+			.bio {
+				display: flex;
+				align-items: flex-start;
+				gap: 2em;
+				margin: 3em 0;
+			}
+			.profile-photo {
+				width: 150px;
+				height: 150px;
+				border-radius: 50%;
+				object-fit: cover;
+				flex-shrink: 0;
+			}
+			.bio-text {
+				color: rgb(var(--gray-dark));
+				line-height: 1.6;
+			}
+			.bio-text p {
+				margin: 0 0 1em 0;
+			}
+			.bio-text p:last-child {
+				margin-bottom: 0;
+			}
+			.contact {
+				border-top: 1px solid rgb(var(--gray-light));
+				padding-top: 2em;
+				text-align: center;
+			}
+			.contact h2 {
+				margin: 0 0 1em 0;
+				color: rgb(var(--gray-dark));
+			}
+			.contact-links {
+				display: flex;
+				justify-content: center;
+				gap: 1.5em;
+			}
+			.contact-links a {
+				color: rgb(var(--gray));
+				transition: color 0.2s;
+			}
+			.contact-links a:hover {
+				color: rgb(var(--black));
+			}
+			@media (max-width: 500px) {
+				.bio {
+					flex-direction: column;
+					align-items: center;
+					text-align: center;
+				}
+			}
+		</style>
+	</body>
+</html>
