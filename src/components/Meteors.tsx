@@ -42,8 +42,8 @@ export function Meteors({ number }: MeteorsProps) {
 					aria-hidden={true}
 					key={idx}
 					class={cn(
-						'absolute h-0.5 w-0.5 rotate-[215deg] animate-meteor-effect rounded-full bg-black',
-						'before:-translate-y-[50%] before:absolute before:top-1/2 before:h-0.5 before:w-14 before:transform before:rounded-full before:bg-gradient-to-r before:from-black before:to-transparent before:content-[""]',
+						'absolute h-0.5 w-0.5 rotate-[215deg] animate-meteor-effect rounded-full bg-slate-200',
+						'before:-translate-y-[50%] before:absolute before:top-1/2 before:h-0.5 before:w-14 before:transform before:rounded-full before:bg-gradient-to-r before:from-slate-200 before:to-transparent before:content-[""]',
 					)}
 					style={{
 						top: `${Math.floor(Math.random() * (0 - -400) + -400)}px`,
