@@ -8,23 +8,22 @@ interface MeteorsProps {
 export function Meteors({ number }: MeteorsProps) {
 	const meteors = new Array(number).fill(null);
 
-	const [dimensions, setDimensions] = useState({
-		width: 1200,
-		height: 800,
+	const [offset, setOffset] = useState({
+		min: 0,
+		max: 800,
 	});
 
 	useEffect(() => {
 		function handler() {
-			setDimensions({
-				width: window.innerWidth,
-				height: window.innerHeight,
+			// Offset min/max to account for meteor angle - they need to start
+			// spread across more than just the viewport width
+			setOffset({
+				min: -(window.innerWidth / 4),
+				max: window.innerWidth + window.innerWidth / 4,
 			});
 		}
-
 		handler();
-
 		window.addEventListener('resize', handler);
-
 		return () => {
 			window.removeEventListener('resize', handler);
 		};
@@ -32,43 +31,22 @@ export function Meteors({ number }: MeteorsProps) {
 
 	return (
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
-			{meteors.map((_el, idx) => {
-				// With rotate(215deg), meteors travel toward bottom-left
-				// So they should start from top-right area (above or to the right of viewport)
-				// Spread starting positions along the top and right edges
-				const offsetAlongEdge = Math.random() * (dimensions.width + dimensions.height);
-
-				let startX: number;
-				let startY: number;
-
-				if (offsetAlongEdge < dimensions.width) {
-					// Start above the viewport, spread across width
-					startX = offsetAlongEdge;
-					startY = -50 - Math.random() * 100;
-				} else {
-					// Start to the right of viewport
-					startX = dimensions.width + 50 + Math.random() * 100;
-					startY = offsetAlongEdge - dimensions.width;
-				}
-
-				return (
-					<span
-						aria-hidden={true}
-						key={idx}
-						class={cn(
-							'absolute h-0.5 w-0.5 rounded-full bg-slate-500',
-							'before:-translate-y-[50%] before:absolute before:top-1/2 before:h-[1px] before:w-[50px] before:transform before:rounded-full before:bg-gradient-to-r before:from-slate-500 before:to-transparent before:content-[""]',
-							'animate-meteor-effect',
-						)}
-						style={{
-							top: `${startY}px`,
-							left: `${startX}px`,
-							animationDelay: `${(idx * 0.4) + Math.random() * 2}s`,
-							animationDuration: `${Math.floor(Math.random() * 8) + 2}s`,
-						}}
-					/>
-				);
-			})}
+			{meteors.map((_el, idx) => (
+				<span
+					aria-hidden={true}
+					key={idx}
+					class={cn(
+						'absolute h-0.5 w-0.5 rotate-[215deg] animate-meteor-effect rounded-full bg-slate-400 shadow-[0_0_0_1px_#ffffff10]',
+						'before:-translate-y-[50%] before:absolute before:top-1/2 before:h-0.5 before:w-12 before:transform before:rounded-full before:bg-gradient-to-r before:from-slate-400 before:to-transparent before:content-[""]',
+					)}
+					style={{
+						top: `${Math.floor(Math.random() * -400)}px`,
+						left: `${Math.floor(Math.random() * (offset.max - offset.min) + offset.min)}px`,
+						animationDelay: `${Math.random() * 0.8 + 0.2}s`,
+						animationDuration: `${Math.floor(Math.random() * 8 + 2)}s`,
+					}}
+				/>
+			))}
 		</div>
 	);
 }
