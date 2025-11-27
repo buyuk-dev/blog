@@ -47,6 +47,19 @@ export function Meteors({ number }: MeteorsProps) {
 			<div style={{ position: 'fixed', right: '10px', top: '60px', width: '30px', height: '30px', backgroundColor: 'blue', borderRadius: '50%', zIndex: 9999 }} />
 			<div style={{ position: 'fixed', left: '10px', bottom: '10px', width: '30px', height: '30px', backgroundColor: 'green', borderRadius: '50%', zIndex: 9999 }} />
 			<div style={{ position: 'fixed', right: '10px', bottom: '10px', width: '30px', height: '30px', backgroundColor: 'yellow', borderRadius: '50%', zIndex: 9999 }} />
+			{/* Test meteor at center of screen */}
+			<span
+				class={cn(
+					'absolute h-0.5 w-0.5 rotate-[215deg] animate-meteor-effect rounded-full bg-slate-400 shadow-[0_0_0_1px_#ffffff10]',
+					'before:-translate-y-[50%] before:absolute before:top-1/2 before:h-0.5 before:w-20 before:transform before:rounded-full before:bg-gradient-to-r before:from-slate-400 before:to-transparent before:content-[""]',
+				)}
+				style={{
+					top: '200px',
+					left: '400px',
+					animationDelay: '0s',
+					animationDuration: '5s',
+				}}
+			/>
 			{meteors.map((_el, idx) => {
 				// Coordinate system: origin (0,0) at top-left, X right, Y down
 				// Meteors travel at 215deg (toward bottom-left)
