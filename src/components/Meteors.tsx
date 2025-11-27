@@ -57,12 +57,12 @@ export function Meteors({ number }: MeteorsProps) {
 				// To pass through area near RED but off-screen toward BLUE:
 				// y = -x + offset, where offset shifts it up
 
-				// t centered around 0, so meteors are distributed around RED corner
+				// Random position along spawn line, centered around RED corner
 				const range = dimensions.width + dimensions.height;
-				const t = ((idx / meteorCount) - 0.5) * range;
+				const t = (Math.random() - 0.5) * range;
 
 				// Line passes through RED (0, 0) with slope -1: y = -x
-				// But we shift it to be off-screen (toward BLUE)
+				// Shifted to be off-screen (toward BLUE)
 				const lineOffset = 100;
 				const startX = t + lineOffset;
 				const startY = -t;
@@ -78,8 +78,8 @@ export function Meteors({ number }: MeteorsProps) {
 						style={{
 							top: `${startY}px`,
 							left: `${startX}px`,
-							animationDelay: '0s',
-							animationDuration: '5s',
+							animationDelay: `${Math.random() * 2}s`,
+							animationDuration: `${4 + Math.random() * 6}s`,
 						}}
 					/>
 				);
