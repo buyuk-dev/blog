@@ -51,26 +51,37 @@ export function Meteors({ number }: MeteorsProps) {
 				// Points on line: x increases, y decreases (going up-right)
 				//                 x decreases, y increases (going down-left)
 
-				const diagonalLength = Math.sqrt(
-					dimensions.width * dimensions.width + dimensions.height * dimensions.height
-				);
+				// Spawn line: diagonal with slope -1 passing through top-right corner (width, 0)
+				// Line equation: y = -(x - width) = width - x
+				//
+				// To cover viewport, we need meteors from:
+				//   - Upper part of line (above viewport, x > width) to hit top-left area
+				//   - Lower part of line (y > 0, x < width) to hit bottom-right area
+				//
+				// The line intersects:
+				//   - y = 0 at x = width (top-right corner)
+				//   - y = height at x = width - height
+				//   - x = 0 at y = width
+				//
+				// We distribute along the line from well above top-right to well below bottom-right
 
-				// Position along the diagonal, centered on top-right corner
-				// Negative = up-right (above viewport), Positive = down-left (into viewport area)
-				const offset = (Math.random() - 0.5) * diagonalLength * 1.4;
+				// Use offset along the line, where 0 = top-right corner
+				// Range from -width (to cover meteors that hit left edge)
+				// to +height (to cover meteors that hit bottom edge)
+				const minOffset = -dimensions.width * 0.5;
+				const maxOffset = dimensions.height + dimensions.width * 0.5;
+				const offset = minOffset + Math.random() * (maxOffset - minOffset);
 
-				// Line direction: going down-left means x decreases, y increases
-				// So offset positive: x = width - offset*cos45, y = 0 + offset*sin45
 				const cos45 = Math.SQRT1_2;
-				const sin45 = Math.SQRT1_2;
 
+				// Point on line: start at (width, 0), move by offset in direction (-1, 1) normalized
 				const lineX = dimensions.width - offset * cos45;
-				const lineY = 0 + offset * sin45;
+				const lineY = 0 + offset * cos45;
 
-				// Push slightly off-screen in the up-right direction (perpendicular, away from viewport)
+				// Push off-screen perpendicular to line (direction (1, 1) normalized = up-right)
 				const perpOffset = 30 + Math.random() * 70;
-				const startX = lineX + perpOffset;
-				const startY = lineY - perpOffset;
+				const startX = lineX + perpOffset * cos45;
+				const startY = lineY - perpOffset * cos45;
 
 				return (
 					<span
