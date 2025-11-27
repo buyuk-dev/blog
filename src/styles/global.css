@@ -48,6 +48,8 @@ main {
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
+	position: relative;
+	z-index: 1;
 }
 h1,
 h2,
