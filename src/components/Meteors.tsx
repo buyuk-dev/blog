@@ -42,7 +42,7 @@ export function Meteors({ number }: MeteorsProps) {
 					style={{
 						top: `${Math.floor(Math.random() * -800 - 100)}px`,
 						left: `${Math.floor(Math.random() * (offset.max - offset.min) + offset.min)}px`,
-						animationDelay: `${Math.random() * 2 + idx * 0.3}s`,
+						animationDelay: `${Math.random() * 0.5}s`,
 						animationDuration: `${Math.floor(Math.random() * 6 + 4)}s`,
 					}}
 				/>
