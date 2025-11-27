@@ -61,14 +61,20 @@ export function Meteors({ number }: MeteorsProps) {
 				}}
 			/>
 			{meteors.map((_el, idx) => {
-				// Spawn line: y = x (\ diagonal through RED/top-left corner)
-				// No offset - spawn exactly on the line
-				// Use idx for deterministic positioning
+				// Spawn line should be perpendicular to GREEN-BLUE diagonal (/)
+				// GREEN is bottom-left, BLUE is top-right
+				// Perpendicular to / is a line with slope -1 (going from top-left to bottom-right area)
+				// Line: y = -x + c, passing near RED corner but shifted toward BLUE
+				//
+				// Let's try: x goes from 0 to width+height, y = -x + some_offset
+				// To pass through area near RED but off-screen toward BLUE:
+				// y = -x + offset, where offset shifts it up
 
+				const lineOffset = 200; // shift line toward BLUE (up and right)
 				const t = (idx / meteorCount) * (dimensions.width + dimensions.height);
 
 				const startX = t;
-				const startY = t;
+				const startY = -t + lineOffset;
 
 				return (
 					<span
