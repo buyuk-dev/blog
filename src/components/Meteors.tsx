@@ -40,8 +40,33 @@ export function Meteors({ number }: MeteorsProps) {
 
 	const meteors = useMemo(() => new Array(meteorCount).fill(null), [meteorCount]);
 
+	// Debug markers to understand coordinate system
+	const markers = [
+		{ x: 0, y: 0, color: 'red', label: '(0,0)' },
+		{ x: dimensions.width, y: 0, color: 'blue', label: '(width,0)' },
+		{ x: 0, y: dimensions.height, color: 'green', label: '(0,height)' },
+		{ x: dimensions.width, y: dimensions.height, color: 'yellow', label: '(width,height)' },
+	];
+
 	return (
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
+			{/* Debug markers */}
+			{markers.map((m, i) => (
+				<div
+					key={`marker-${i}`}
+					style={{
+						position: 'absolute',
+						left: `${m.x}px`,
+						top: `${m.y}px`,
+						width: '20px',
+						height: '20px',
+						backgroundColor: m.color,
+						borderRadius: '50%',
+						zIndex: 9999,
+					}}
+					title={m.label}
+				/>
+			))}
 			{meteors.map((_el, idx) => {
 				// Meteors travel toward bottom-left (215deg)
 				// Spawn line: 45° diagonal going from upper-right to lower-left area,
