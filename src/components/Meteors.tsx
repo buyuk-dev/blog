@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useState, useMemo } from 'preact/hooks';
 import { cn } from '../utils/cn'
 
 interface MeteorsProps {
-	number: number;
+	number?: number;
 }
 
-export function Meteors({ number }: MeteorsProps) {
-	const meteors = new Array(number).fill(null);
+// Base density: number of meteors per million pixels of viewport
+const METEORS_PER_MILLION_PX = 15;
+const MIN_METEORS = 10;
+const MAX_METEORS = 60;
 
+export function Meteors({ number }: MeteorsProps) {
 	const [dimensions, setDimensions] = useState({
 		width: 1200,
 		height: 800,
@@ -26,6 +29,16 @@ export function Meteors({ number }: MeteorsProps) {
 			window.removeEventListener('resize', handler);
 		};
 	}, []);
+
+	// Calculate meteor count based on viewport area
+	const meteorCount = useMemo(() => {
+		if (number !== undefined) return number;
+		const area = dimensions.width * dimensions.height;
+		const calculated = Math.floor((area / 1_000_000) * METEORS_PER_MILLION_PX);
+		return Math.max(MIN_METEORS, Math.min(MAX_METEORS, calculated));
+	}, [dimensions.width, dimensions.height, number]);
+
+	const meteors = useMemo(() => new Array(meteorCount).fill(null), [meteorCount]);
 
 	return (
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
