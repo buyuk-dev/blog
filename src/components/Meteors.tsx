@@ -61,35 +61,25 @@ export function Meteors({ number }: MeteorsProps) {
 				}}
 			/>
 			{meteors.map((_el, idx) => {
-				// Coordinate system: origin (0,0) at top-left (RED), X right, Y down
-				// Meteors travel at 215deg (toward bottom-left)
+				// Spawn line: y = x (\ diagonal through RED/top-left corner)
+				// Perpendicular to GREEN-BLUE diagonal (/)
 				//
-				// Spawn line: \ diagonal (slope +1) passing through TOP-LEFT corner (0, 0)
-				// Line equation: y = x
-				// Perpendicular to the GREEN-BLUE diagonal (/)
-				//
-				// The line extends from above-left of RED to below-right of YELLOW
-				// t = 0: at RED corner (0, 0)
-				// t < 0: above and left of RED (off-screen)
-				// t > 0: toward YELLOW corner
+				// We place meteors along the spawn line, then push them off-screen
+				// in the perpendicular direction (up and to the right)
 
-				// Extend range beyond viewport to cover edges
-				const minT = -200;
-				const maxT = Math.max(dimensions.width, dimensions.height) + 200;
-				const t = minT + Math.random() * (maxT - minT);
+				// t parameter along the spawn line
+				// Range covers from before RED corner to past YELLOW corner
+				const t = -100 + Math.random() * (dimensions.width + dimensions.height + 200);
 
-				// Position on the \ spawn line (y = x shifted by t along the diagonal)
-				// Direction along line is (1, 1) normalized = (0.707, 0.707)
-				const cos45 = Math.SQRT1_2;
-				const lineX = t * cos45;
-				const lineY = t * cos45;
+				// Point on spawn line: x = t, y = t
+				const lineX = t;
+				const lineY = t;
 
-				// Push off-screen perpendicular to the spawn line
-				// Perpendicular to (1,1) is (1,-1) - this pushes up and right
-				// Need to push far enough that even points inside viewport end up outside
-				const pushDist = Math.max(dimensions.width, dimensions.height) * 0.7 + Math.random() * 100;
-				const startX = lineX + pushDist * cos45;
-				const startY = lineY - pushDist * cos45;
+				// Push perpendicular to spawn line (direction: right and up)
+				// Push just enough to be off-screen
+				const pushDist = 100 + Math.random() * 50;
+				const startX = lineX + pushDist;
+				const startY = lineY - pushDist;
 
 				return (
 					<span
