@@ -63,8 +63,9 @@ export function Meteors({ number }: MeteorsProps) {
 			{meteors.map((_el, idx) => {
 				// Spawn line: y = x (\ diagonal through RED/top-left corner)
 				// No offset - spawn exactly on the line
+				// Use idx for deterministic positioning
 
-				const t = Math.random() * (dimensions.width + dimensions.height);
+				const t = (idx / meteorCount) * (dimensions.width + dimensions.height);
 
 				const startX = t;
 				const startY = t;
@@ -80,8 +81,8 @@ export function Meteors({ number }: MeteorsProps) {
 						style={{
 							top: `${startY}px`,
 							left: `${startX}px`,
-							animationDelay: `${Math.random() * 0.5}s`,
-							animationDuration: `${Math.floor(Math.random() * 6 + 4)}s`,
+							animationDelay: '0s',
+							animationDuration: '5s',
 						}}
 					/>
 				);
