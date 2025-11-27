@@ -42,58 +42,34 @@ export function Meteors({ number }: MeteorsProps) {
 
 	return (
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
-			{/* Debug markers - fixed positions */}
-			<div style={{ position: 'fixed', left: '0px', top: '50px', width: '30px', height: '30px', backgroundColor: 'red', borderRadius: '50%', zIndex: 9999 }} />
-			<div style={{ position: 'fixed', right: '0px', top: '50px', width: '30px', height: '30px', backgroundColor: 'blue', borderRadius: '50%', zIndex: 9999 }} />
-			<div style={{ position: 'fixed', left: '0px', bottom: '0px', width: '30px', height: '30px', backgroundColor: 'green', borderRadius: '50%', zIndex: 9999 }} />
-			<div style={{ position: 'fixed', right: '0px', bottom: '0px', width: '30px', height: '30px', backgroundColor: 'yellow', borderRadius: '50%', zIndex: 9999 }} />
-			{/* Test marker using absolute pixel coords */}
-			<div style={{ position: 'absolute', left: `${dimensions.width - 50}px`, top: '50px', width: '30px', height: '30px', backgroundColor: 'purple', borderRadius: '50%', zIndex: 9999 }} />
 			{meteors.map((_el, idx) => {
-				// Meteors travel toward bottom-left (215deg)
-				// Spawn line: 45° diagonal going from upper-right to lower-left area,
-				// passing through top-right corner of viewport
-				//
-				// The line equation through top-right corner (width, 0) at -45° slope:
-				// Points on line: x increases, y decreases (going up-right)
-				//                 x decreases, y increases (going down-left)
-
+				// Coordinate system: origin (0,0) at top-left, X right, Y down
 				// Meteors travel at 215deg (toward bottom-left)
-				// They come FROM 35deg direction (upper-right)
 				//
-				// Spawn line should be PERPENDICULAR to travel direction
-				// Travel direction: 215deg -> perpendicular is 215-90 = 125deg or 215+90 = 305deg
+				// Spawn line: slope +1 line (the \ diagonal) passing through top-right corner
+				// This is perpendicular to the / diagonal
+				// Line through (width, 0): y - 0 = 1 * (x - width), so y = x - width
 				//
-				// Actually simpler: place meteors along a line perpendicular to their travel,
-				// positioned off-screen in the direction they come from.
-				//
-				// 215deg travel = coming from 35deg
-				// Perpendicular spawn line runs at 125deg-305deg (or slope = tan(125deg) ≈ -2.14)
-				//
-				// But you wanted the line at 45deg through top-right corner. Let's do exactly that.
-				// Line at 45deg = slope of -1, through (width, 0)
-				//
-				// Distribute meteors along this line, then offset them in the 35deg direction
-				// (the direction they travel FROM) to push them off-screen.
+				// Parametric form starting at top-right (width, 0):
+				//   x = width + t
+				//   y = 0 + t
+				// t < 0: moves left and up (above viewport)
+				// t > 0: moves right and down (right of viewport)
 
-				// Spawn line: slope -1 (the / diagonal direction)
-				// We want it to pass through top-right corner (width, 0)
-				// and be shifted off-screen to the upper-right
-				//
-				// Line equation: y = -(x - width) = width - x
-				// Or parametrically from top-right: x = width + t, y = -t
-				// t > 0: moves right and up (off-screen)
-				// t < 0: moves left and down (toward bottom-left)
+				const totalRange = (dimensions.width + dimensions.height) * 1.2;
 
-				const totalRange = (dimensions.width + dimensions.height) * 1.5;
+				// Distribute along the line, centered at top-right corner
+				const t = (Math.random() - 0.5) * totalRange;
 
-				// t ranges from 0 to totalRange (all on one side of top-right corner)
-				// This places all spawn points to the upper-right of the top-right corner
-				const t = Math.random() * totalRange;
+				// Position on the spawn line
+				const lineX = dimensions.width + t;
+				const lineY = 0 + t;
 
-				// Position on the spawn line (upper-right of viewport)
-				const startX = dimensions.width + t + 50;
-				const startY = -t - 50;
+				// Push off-screen: meteors come from upper-right (roughly 35deg)
+				// Push in direction (1, -1) to move up and right, off-screen
+				const pushDist = 50 + Math.random() * 100;
+				const startX = lineX + pushDist;
+				const startY = lineY - pushDist;
 
 				return (
 					<span
