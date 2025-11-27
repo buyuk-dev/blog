@@ -69,23 +69,24 @@ export function Meteors({ number }: MeteorsProps) {
 				// Distribute meteors along this line, then offset them in the 35deg direction
 				// (the direction they travel FROM) to push them off-screen.
 
-				// Range along the spawn line to cover full viewport
+				// Spawn line: slope -1 (the / diagonal direction)
+				// We want it to pass through top-right corner (width, 0)
+				// and be shifted off-screen to the upper-right
+				//
+				// Line equation: y = -(x - width) = width - x
+				// Or parametrically from top-right: x = width + t, y = -t
+				// t > 0: moves right and up (off-screen)
+				// t < 0: moves left and down (toward bottom-left)
+
 				const totalRange = (dimensions.width + dimensions.height) * 1.5;
 
-				// Random position along the line, centered on top-right corner
-				const t = (Math.random() - 0.5) * totalRange;
+				// t ranges from 0 to totalRange (all on one side of top-right corner)
+				// This places all spawn points to the upper-right of the top-right corner
+				const t = Math.random() * totalRange;
 
-				// Spawn line: slope -1 through top-right corner (width, 0)
-				// Direction along line: (1, -1) normalized
-				// t positive = right and up, t negative = left and down
-				const baseX = dimensions.width + t;
-				const baseY = 0 - t;
-
-				// Push in the direction meteors come FROM (35deg from horizontal)
-				// 35deg: cos(35) ≈ 0.819, sin(35) ≈ 0.574
-				const pushDist = 100 + Math.random() * 150;
-				const startX = baseX + pushDist * 0.819;
-				const startY = baseY - pushDist * 0.574;
+				// Position on the spawn line (upper-right of viewport)
+				const startX = dimensions.width + t + 50;
+				const startY = -t - 50;
 
 				return (
 					<span
