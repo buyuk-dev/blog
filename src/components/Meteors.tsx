@@ -43,10 +43,12 @@ export function Meteors({ number }: MeteorsProps) {
 	return (
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
 			{/* Debug markers - fixed positions */}
-			<div style={{ position: 'fixed', left: '0px', top: '0px', width: '30px', height: '30px', backgroundColor: 'red', borderRadius: '50%', zIndex: 9999 }} />
-			<div style={{ position: 'fixed', right: '0px', top: '0px', width: '30px', height: '30px', backgroundColor: 'blue', borderRadius: '50%', zIndex: 9999 }} />
+			<div style={{ position: 'fixed', left: '0px', top: '50px', width: '30px', height: '30px', backgroundColor: 'red', borderRadius: '50%', zIndex: 9999 }} />
+			<div style={{ position: 'fixed', right: '0px', top: '50px', width: '30px', height: '30px', backgroundColor: 'blue', borderRadius: '50%', zIndex: 9999 }} />
 			<div style={{ position: 'fixed', left: '0px', bottom: '0px', width: '30px', height: '30px', backgroundColor: 'green', borderRadius: '50%', zIndex: 9999 }} />
 			<div style={{ position: 'fixed', right: '0px', bottom: '0px', width: '30px', height: '30px', backgroundColor: 'yellow', borderRadius: '50%', zIndex: 9999 }} />
+			{/* Test marker using absolute pixel coords */}
+			<div style={{ position: 'absolute', left: `${dimensions.width - 50}px`, top: '50px', width: '30px', height: '30px', backgroundColor: 'purple', borderRadius: '50%', zIndex: 9999 }} />
 			{meteors.map((_el, idx) => {
 				// Meteors travel toward bottom-left (215deg)
 				// Spawn line: 45° diagonal going from upper-right to lower-left area,
