@@ -44,29 +44,37 @@ export function Meteors({ number }: MeteorsProps) {
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
 			{meteors.map((_el, idx) => {
 				// Meteors travel from top-right to bottom-left (215deg rotation)
-				// Spawn line: 45-degree diagonal passing through top-right corner
-				// This line extends from above-right to below-right of viewport
-				// Meteors distributed along this line will cover the entire screen
+				// Spawn line: 45° diagonal from top-left to bottom-right, passing through top-right corner
+				//
+				//     /  <- meteors spawn here (above viewport)
+				//    /
+				//   * <- top-right corner (anchor point)
+				//  /
+				// /  <- meteors spawn here (right of viewport)
+				//
+				// This ensures even coverage as meteors travel toward bottom-left
 
-				// The diagonal line length needs to cover the full viewport diagonal
 				const diagonalLength = Math.sqrt(
 					dimensions.width * dimensions.width + dimensions.height * dimensions.height
 				);
 
 				// Position along the diagonal, centered on top-right corner
-				// Range: -diagonalLength/2 to +diagonalLength/2
 				const offset = (Math.random() - 0.5) * diagonalLength * 1.2;
 
-				// Top-right corner is the anchor point
-				// Move along 45-degree line (down-right is positive, up-left is negative)
-				// 45 degrees: dx = offset * cos(45°), dy = offset * sin(45°)
-				const cos45 = Math.SQRT1_2; // ~0.707
+				// Top-right corner is anchor. Line goes from top-left to bottom-right direction.
+				// Moving along this line: positive offset = down-right, negative = up-left
+				// Direction vector for line going down-right: (1, 1) normalized = (0.707, 0.707)
+				const cos45 = Math.SQRT1_2;
 				const sin45 = Math.SQRT1_2;
 
-				// Start position: top-right corner + offset along 45° line + small perpendicular offset to be off-screen
-				const perpOffset = 50 + Math.random() * 100; // Push off-screen
-				const startX = dimensions.width + offset * cos45 + perpOffset * cos45;
-				const startY = 0 + offset * sin45 - perpOffset * sin45;
+				// Position on the spawn line
+				const lineX = dimensions.width + offset * cos45;
+				const lineY = 0 + offset * sin45;
+
+				// Push perpendicular to the line (up-right direction) to be off-screen
+				const perpOffset = 50 + Math.random() * 100;
+				const startX = lineX + perpOffset * cos45;
+				const startY = lineY - perpOffset * sin45;
 
 				return (
 					<span
