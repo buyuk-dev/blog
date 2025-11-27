@@ -62,24 +62,12 @@ export function Meteors({ number }: MeteorsProps) {
 			/>
 			{meteors.map((_el, idx) => {
 				// Spawn line: y = x (\ diagonal through RED/top-left corner)
-				// Perpendicular to GREEN-BLUE diagonal (/)
-				//
-				// We place meteors along the spawn line, then push them off-screen
-				// in the perpendicular direction (up and to the right)
+				// No offset - spawn exactly on the line
 
-				// t parameter along the spawn line
-				// Range covers from before RED corner to past YELLOW corner
-				const t = -100 + Math.random() * (dimensions.width + dimensions.height + 200);
+				const t = Math.random() * (dimensions.width + dimensions.height);
 
-				// Point on spawn line: x = t, y = t
-				const lineX = t;
-				const lineY = t;
-
-				// Push perpendicular to spawn line (direction: right and up)
-				// Push just enough to be off-screen
-				const pushDist = 100 + Math.random() * 50;
-				const startX = lineX + pushDist;
-				const startY = lineY - pushDist;
+				const startX = t;
+				const startY = t;
 
 				return (
 					<span
