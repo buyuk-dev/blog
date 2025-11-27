@@ -51,37 +51,41 @@ export function Meteors({ number }: MeteorsProps) {
 				// Points on line: x increases, y decreases (going up-right)
 				//                 x decreases, y increases (going down-left)
 
-				// Spawn line: diagonal with slope -1 passing through top-right corner (width, 0)
+				// Meteors travel at 215deg (toward bottom-left)
+				// They come FROM 35deg direction (upper-right)
 				//
-				// For meteors traveling at 215deg (toward bottom-left), to cover the ENTIRE
-				// viewport we need spawn points distributed along this line from:
-				//   - Far above/right of viewport (to hit the top-left corner area)
-				//   - Far below/left along the line (to hit the bottom-right corner area)
+				// Spawn line should be PERPENDICULAR to travel direction
+				// Travel direction: 215deg -> perpendicular is 215-90 = 125deg or 215+90 = 305deg
 				//
-				// The key insight: a meteor at top-right corner travels to bottom-left,
-				// but only covers the main diagonal. To hit bottom-right, we need meteors
-				// starting further DOWN the spawn line (at positive Y, right of viewport).
+				// Actually simpler: place meteors along a line perpendicular to their travel,
+				// positioned off-screen in the direction they come from.
+				//
+				// 215deg travel = coming from 35deg
+				// Perpendicular spawn line runs at 125deg-305deg (or slope = tan(125deg) ≈ -2.14)
+				//
+				// But you wanted the line at 45deg through top-right corner. Let's do exactly that.
+				// Line at 45deg = slope of -1, through (width, 0)
+				//
+				// Distribute meteors along this line, then offset them in the 35deg direction
+				// (the direction they travel FROM) to push them off-screen.
 
-				// Total range needed along the spawn line
-				const lineLength = dimensions.width + dimensions.height;
+				// Range along the spawn line to cover full viewport
+				const totalRange = (dimensions.width + dimensions.height) * 1.5;
 
-				// Offset along line: 0 = top-right corner
-				// negative = up-right (off-screen above)
-				// positive = down-left along line (to cover bottom-right of viewport)
-				const minOffset = -dimensions.width;
-				const maxOffset = dimensions.height + dimensions.width;
-				const offset = minOffset + Math.random() * (maxOffset - minOffset);
+				// Random position along the line, centered on top-right corner
+				const t = (Math.random() - 0.5) * totalRange;
 
-				const cos45 = Math.SQRT1_2;
+				// Spawn line direction: 45deg slope means direction (1, -1) normalized
+				// Moving along line: t positive = right and up, t negative = left and down
+				const lineDir = Math.SQRT1_2;
+				const baseX = dimensions.width + t * lineDir;
+				const baseY = 0 - t * lineDir;
 
-				// Point on line: start at (width, 0), move by offset in direction (-1, 1) normalized
-				const lineX = dimensions.width - offset * cos45;
-				const lineY = 0 + offset * cos45;
-
-				// Push off-screen perpendicular to line (direction (1, 1) normalized = up-right)
-				const perpOffset = 50 + Math.random() * 100;
-				const startX = lineX + perpOffset * cos45;
-				const startY = lineY - perpOffset * cos45;
+				// Push in the direction meteors come FROM (35deg from horizontal)
+				// 35deg: cos(35) ≈ 0.819, sin(35) ≈ 0.574
+				const pushDist = 100 + Math.random() * 150;
+				const startX = baseX + pushDist * 0.819;
+				const startY = baseY - pushDist * 0.574;
 
 				return (
 					<span
