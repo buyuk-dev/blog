@@ -75,11 +75,11 @@ export function Meteors({ number }: MeteorsProps) {
 				// Random position along the line, centered on top-right corner
 				const t = (Math.random() - 0.5) * totalRange;
 
-				// Spawn line direction: 45deg slope means direction (1, -1) normalized
-				// Moving along line: t positive = right and up, t negative = left and down
-				const lineDir = Math.SQRT1_2;
-				const baseX = dimensions.width + t * lineDir;
-				const baseY = 0 - t * lineDir;
+				// Spawn line: slope -1 through top-right corner (width, 0)
+				// Direction along line: (1, -1) normalized
+				// t positive = right and up, t negative = left and down
+				const baseX = dimensions.width + t;
+				const baseY = 0 - t;
 
 				// Push in the direction meteors come FROM (35deg from horizontal)
 				// 35deg: cos(35) ≈ 0.819, sin(35) ≈ 0.574
