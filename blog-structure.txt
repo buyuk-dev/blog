@@ -1,0 +1,64 @@
+.
+├── README.md
+├── blog-structure.txt
+├── docs
+│   ├── markdown-style-guide.md
+│   └── using-mdx.mdx
+├── meteor-blog-structure.txt
+├── package-lock.json
+├── package.json
+├── public
+│   ├── blog-placeholder-1.jpg
+│   ├── blog-placeholder-2.jpg
+│   ├── blog-placeholder-3.jpg
+│   ├── blog-placeholder-4.jpg
+│   ├── blog-placeholder-5.jpg
+│   ├── blog-placeholder-about.jpg
+│   ├── favicon.svg
+│   ├── fonts
+│   │   ├── atkinson-bold.woff
+│   │   └── atkinson-regular.woff
+│   └── images
+│       ├── ad8232.jpg
+│       ├── arduino-sensor-diagram.jpg
+│       ├── hardware-setup.png
+│       ├── jack-signal-hero-image.png
+│       ├── muse-direct-menu.png
+│       ├── muse-direct-streaming-settings.png
+│       ├── muse-lab-eeg-time-graph.png
+│       ├── muse-lab-incoming-msgs.png
+│       ├── muse-lab-main.png
+│       ├── muse-lab-new-scrolling-graph.png
+│       ├── muse-lab-new-visualizer.png
+│       ├── muse-lab-visualizer-settings.png
+│       ├── muse-lab-visualizer-signal-selection.png
+│       └── sparkfun-ecg-hero-image.png
+├── src
+│   ├── components
+│   │   ├── BaseHead.astro
+│   │   ├── Footer.astro
+│   │   ├── FormattedDate.astro
+│   │   ├── Header.astro
+│   │   └── HeaderLink.astro
+│   ├── consts.ts
+│   ├── content
+│   │   └── blog
+│   │       ├── ecg-with-arduino-and-sparkfun-AD8232-sensor.md
+│   │       ├── muse2-eeg-osc-streaming.md
+│   │       └── sound-card-signal-generator.md
+│   ├── content.config.ts
+│   ├── layouts
+│   │   └── BlogPost.astro
+│   ├── pages
+│   │   ├── about.astro
+│   │   ├── blog
+│   │   │   ├── [...slug].astro
+│   │   │   └── index.astro
+│   │   ├── index.astro
+│   │   ├── resume.md
+│   │   └── rss.xml.js
+│   └── styles
+│       └── global.css
+└── tsconfig.json
+
+12 directories, 49 files
