@@ -3,6 +3,7 @@ title: Tracing LangChain Embeddings with Langfuse
 description: LangChain's embedding models don't fire callbacks like chat models do, leaving your embedding operations invisible in Langfuse traces. Here's a simple wrapper that adds full observability to any LangChain embeddings model.
 pubDate: 'Nov 26 2025'
 tags: genai agents observability embeddings langfuse langchain llm ai
+heroImage: /images/langfuse-embeddings/trace.jpeg
 ---
 
 When working with LangChain and Langfuse, you'll notice that while LLM calls are automatically traced via the `CallbackHandler`, embedding calls are not captured out of the box. Here's a simple wrapper that adds full observability to any LangChain embeddings model.
