@@ -44,26 +44,29 @@ export function Meteors({ number }: MeteorsProps) {
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
 			{meteors.map((_el, idx) => {
 				// Meteors travel from top-right to bottom-left (215deg rotation)
-				// To cover the whole screen, start them from two edges:
-				// 1. Above the viewport (top edge) - spread across the width
-				// 2. To the right of viewport (right edge) - spread down the height
-				// This creates an L-shaped spawn zone that covers the full screen
+				// Spawn line: 45-degree diagonal passing through top-right corner
+				// This line extends from above-right to below-right of viewport
+				// Meteors distributed along this line will cover the entire screen
 
-				const totalEdgeLength = dimensions.width + dimensions.height;
-				const position = Math.random() * totalEdgeLength;
+				// The diagonal line length needs to cover the full viewport diagonal
+				const diagonalLength = Math.sqrt(
+					dimensions.width * dimensions.width + dimensions.height * dimensions.height
+				);
 
-				let startX: number;
-				let startY: number;
+				// Position along the diagonal, centered on top-right corner
+				// Range: -diagonalLength/2 to +diagonalLength/2
+				const offset = (Math.random() - 0.5) * diagonalLength * 1.2;
 
-				if (position < dimensions.width) {
-					// Spawn above viewport, spread across width
-					startX = position;
-					startY = -50 - Math.random() * 150;
-				} else {
-					// Spawn to the right of viewport, spread down height
-					startX = dimensions.width + 50 + Math.random() * 150;
-					startY = position - dimensions.width;
-				}
+				// Top-right corner is the anchor point
+				// Move along 45-degree line (down-right is positive, up-left is negative)
+				// 45 degrees: dx = offset * cos(45°), dy = offset * sin(45°)
+				const cos45 = Math.SQRT1_2; // ~0.707
+				const sin45 = Math.SQRT1_2;
+
+				// Start position: top-right corner + offset along 45° line + small perpendicular offset to be off-screen
+				const perpOffset = 50 + Math.random() * 100; // Push off-screen
+				const startX = dimensions.width + offset * cos45 + perpOffset * cos45;
+				const startY = 0 + offset * sin45 - perpOffset * sin45;
 
 				return (
 					<span
