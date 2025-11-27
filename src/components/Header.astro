@@ -1,8 +1,10 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import { Meteors } from './Meteors';
 ---
 
+<Meteors number={20} client:load />
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>

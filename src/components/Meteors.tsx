@@ -18,8 +18,8 @@ export function Meteors({ number }: MeteorsProps) {
 			// Offset min/max to account for meteor angle - they need to start
 			// spread across more than just the viewport width
 			setOffset({
-				min: -(window.innerWidth / 4),
-				max: window.innerWidth + window.innerWidth / 4,
+				min: -(window.innerWidth / 2),
+				max: window.innerWidth * 1.5,
 			});
 		}
 		handler();
@@ -37,13 +37,13 @@ export function Meteors({ number }: MeteorsProps) {
 					key={idx}
 					class={cn(
 						'absolute h-0.5 w-0.5 rotate-[215deg] animate-meteor-effect rounded-full bg-slate-400 shadow-[0_0_0_1px_#ffffff10]',
-						'before:-translate-y-[50%] before:absolute before:top-1/2 before:h-0.5 before:w-12 before:transform before:rounded-full before:bg-gradient-to-r before:from-slate-400 before:to-transparent before:content-[""]',
+						'before:-translate-y-[50%] before:absolute before:top-1/2 before:h-0.5 before:w-20 before:transform before:rounded-full before:bg-gradient-to-r before:from-slate-400 before:to-transparent before:content-[""]',
 					)}
 					style={{
-						top: `${Math.floor(Math.random() * -400)}px`,
+						top: `${Math.floor(Math.random() * -800 - 100)}px`,
 						left: `${Math.floor(Math.random() * (offset.max - offset.min) + offset.min)}px`,
-						animationDelay: `${Math.random() * 0.8 + 0.2}s`,
-						animationDuration: `${Math.floor(Math.random() * 8 + 2)}s`,
+						animationDelay: `${Math.random() * 2 + idx * 0.3}s`,
+						animationDuration: `${Math.floor(Math.random() * 6 + 4)}s`,
 					}}
 				/>
 			))}
