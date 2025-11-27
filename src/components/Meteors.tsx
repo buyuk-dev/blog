@@ -68,24 +68,28 @@ export function Meteors({ number }: MeteorsProps) {
 				// Line equation: y = x
 				// Perpendicular to the GREEN-BLUE diagonal (/)
 				//
-				// To cover whole viewport, distribute meteors along this line
-				// t = 0: at origin (0, 0)
-				// t > 0: moves right and down along the \ line
+				// The line extends from above-left of RED to below-right of YELLOW
+				// t = 0: at RED corner (0, 0)
+				// t < 0: above and left of RED (off-screen)
+				// t > 0: toward YELLOW corner
 
-				const totalRange = dimensions.width + dimensions.height;
+				// Extend range beyond viewport to cover edges
+				const minT = -200;
+				const maxT = Math.max(dimensions.width, dimensions.height) + 200;
+				const t = minT + Math.random() * (maxT - minT);
 
-				// t goes from 0 to totalRange
-				const t = Math.random() * totalRange;
+				// Position on the \ spawn line (y = x shifted by t along the diagonal)
+				// Direction along line is (1, 1) normalized = (0.707, 0.707)
+				const cos45 = Math.SQRT1_2;
+				const lineX = t * cos45;
+				const lineY = t * cos45;
 
-				// Position on the \ spawn line through top-left (RED) corner
-				// y = x, so lineX = t, lineY = t
-				const lineX = t;
-				const lineY = t;
-
-				// Push off-screen: up and right (negative Y, positive X)
-				const pushDist = 50 + Math.random() * 100;
-				const startX = lineX + pushDist;
-				const startY = lineY - pushDist;
+				// Push off-screen perpendicular to the spawn line
+				// Perpendicular to (1,1) is (1,-1) - this pushes up and right
+				// Need to push far enough that even points inside viewport end up outside
+				const pushDist = Math.max(dimensions.width, dimensions.height) * 0.7 + Math.random() * 100;
+				const startX = lineX + pushDist * cos45;
+				const startY = lineY - pushDist * cos45;
 
 				return (
 					<span
