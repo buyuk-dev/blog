@@ -11,17 +11,14 @@ module.exports = {
       keyframes: {
         meteor: {
           '0%': {
-            transform: 'rotate(45deg) translate(0, 0)',
-            opacity: '0'
-          },
-          '5%': {
+            transform: 'rotate(215deg) translateX(0)',
             opacity: '1'
           },
-          '80%': {
+          '70%': {
             opacity: '1'
           },
           '100%': {
-            transform: 'rotate(45deg) translate(1200px, 1200px)',
+            transform: 'rotate(215deg) translateX(-1500px)',
             opacity: '0',
           },
         },
