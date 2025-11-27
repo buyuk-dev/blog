@@ -42,11 +42,6 @@ export function Meteors({ number }: MeteorsProps) {
 
 	return (
 		<div class='fixed inset-0 w-full h-screen overflow-hidden pointer-events-none motion-reduce:hidden z-0'>
-			{/* Debug markers */}
-			<div style={{ position: 'fixed', left: '10px', top: '60px', width: '30px', height: '30px', backgroundColor: 'red', borderRadius: '50%', zIndex: 9999 }} />
-			<div style={{ position: 'fixed', right: '10px', top: '60px', width: '30px', height: '30px', backgroundColor: 'blue', borderRadius: '50%', zIndex: 9999 }} />
-			<div style={{ position: 'fixed', left: '10px', bottom: '10px', width: '30px', height: '30px', backgroundColor: 'green', borderRadius: '50%', zIndex: 9999 }} />
-			<div style={{ position: 'fixed', right: '10px', bottom: '10px', width: '30px', height: '30px', backgroundColor: 'yellow', borderRadius: '50%', zIndex: 9999 }} />
 			{meteors.map((_el, idx) => {
 				// Spawn line should be perpendicular to GREEN-BLUE diagonal (/)
 				// GREEN is bottom-left, BLUE is top-right
