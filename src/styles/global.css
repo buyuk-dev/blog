@@ -4,9 +4,13 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-	--accent: #6366f1;
-	--accent-dark: #818cf8;
+	--accent: #f59e0b;
+	--accent-dark: #fbbf24;
 	--black: 229, 231, 235;
 	--gray: 156, 163, 175;
 	--gray-light: 55, 65, 81;
@@ -61,24 +65,24 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
+	margin: 1.5em 0 0.5em 0;
 	color: rgb(var(--black));
 	line-height: 1.2;
 }
 h1 {
-	font-size: 3.052em;
+	font-size: 1.75em;
 }
 h2 {
-	font-size: 2.441em;
+	font-size: 1.25em;
 }
 h3 {
-	font-size: 1.953em;
+	font-size: 1.125em;
 }
 h4 {
-	font-size: 1.563em;
+	font-size: 1em;
 }
 h5 {
-	font-size: 1.25em;
+	font-size: 0.875em;
 }
 strong,
 b {
@@ -91,10 +95,7 @@ a:hover {
 	color: var(--accent-dark);
 }
 p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1.5em;
 }
 textarea {
 	width: 100%;
@@ -117,6 +118,7 @@ code {
 	border-radius: 2px;
 }
 pre {
+	margin: 1.5em 0;
 	padding: 1.5em;
 	border-radius: 8px;
 	background-color: var(--bg-secondary) !important;
@@ -160,7 +162,3 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
